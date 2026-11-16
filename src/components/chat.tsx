@@ -20,12 +20,14 @@ export function Chat({
   initial,
   myId,
   canPost,
+  myRole,
   source = TECH_SOURCE,
 }: {
   ticketId: string;
   initial: Message[];
   myId: string;
   canPost: boolean;
+  myRole: Role;
   source?: Source;
 }) {
   const { messages: table = "tech_messages", fk, bucket } = source;
@@ -82,9 +84,13 @@ export function Chat({
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages.length]);
 
+  // Turn-based: the importer can always write; the dealer only in reply to the importer.
+  const last = messages[messages.length - 1];
+  const myTurn = myRole === "importer" || last?.sender_role === "importer";
+
   async function send() {
     const body = text.trim();
-    if ((!body && files.length === 0) || sending) return;
+    if ((!body && files.length === 0) || sending || !myTurn) return;
     setSending(true);
     setError(null);
     try {
@@ -145,7 +151,13 @@ export function Chat({
         })}
       </div>
 
-      {canPost ? (
+      {canPost && !myTurn ? (
+        <p className="border-t border-line p-4 text-center text-sm text-gray-500">
+          {last
+            ? "Mesajul a fost trimis. Poți scrie din nou după ce răspunde importatorul."
+            : "Solicitarea a fost trimisă. Vei putea scrie un mesaj după ce răspunde importatorul."}
+        </p>
+      ) : canPost ? (
         <div className="border-t border-line p-3">
           {error && <p className="mb-2 text-xs text-danger">{error}</p>}
           {files.length > 0 && (

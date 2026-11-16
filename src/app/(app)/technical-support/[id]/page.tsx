@@ -97,9 +97,15 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
         </div>
 
         <section className="card flex h-[70dvh] min-h-96 flex-col lg:sticky lg:top-4 lg:h-[calc(100dvh-11rem)]">
-          <h2 className="card-title">Conversație</h2>
+          <h2 className="card-title">Mesaje</h2>
           <div className="min-h-0 flex-1">
-            <Chat ticketId={ticket.id} initial={messages} myId={profile.id} canPost={ticket.status === "open"} />
+            <Chat
+              ticketId={ticket.id}
+              initial={messages}
+              myId={profile.id}
+              myRole={profile.role}
+              canPost={ticket.status === "open"}
+            />
           </div>
         </section>
       </div>

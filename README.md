@@ -43,7 +43,8 @@ Access rules (enforced in the database, not only in the UI):
 - a dealer sees only its own tickets, files and messages;
 - the importer sees every ticket once it is submitted (never drafts);
 - a ticket is locked for the dealer after "Save And Submit"; only the importer closes/reopens it;
-- chat is available while the ticket is open (technical support only);
+- technical support messages are turn-based while the ticket is open: the importer can always
+  write, the dealer only in reply to the importer's last message;
 - a claim stays editable by its dealer until the importer approves it; any dealer edit puts it
   back to "pending".
 
