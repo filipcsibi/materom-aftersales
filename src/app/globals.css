@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-primary: #1677ff;
+  --color-primary-hover: #4096ff;
+  --color-line: #e5e7eb;
+  --color-danger: #e5484d;
+}
+
+body {
+  background: #f3f4f6;
+  color: #1f2328;
+}
+
+@layer components {
+  .card {
+    @apply rounded-md border border-line bg-white;
+  }
+  .card-title {
+    @apply border-b border-line px-6 py-4 text-base font-semibold;
+  }
+  .input {
+    @apply block w-full rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm outline-none transition placeholder:text-gray-400 hover:border-primary-hover focus:border-primary focus:ring-2 focus:ring-primary/15 disabled:bg-gray-100 disabled:text-gray-500;
+  }
+  .input-error {
+    @apply border-danger hover:border-danger focus:border-danger focus:ring-danger/15;
+  }
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-1.5 text-sm font-medium transition hover:border-primary-hover hover:text-primary disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply border-primary bg-primary text-white hover:border-primary-hover hover:bg-primary-hover hover:text-white;
+  }
+  .btn-danger {
+    @apply border-transparent bg-transparent text-danger hover:border-danger hover:text-danger;
+  }
+  .badge {
+    @apply inline-flex items-center rounded px-2 py-0.5 text-xs font-medium;
+  }
+}
